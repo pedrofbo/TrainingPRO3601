@@ -5,33 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "OracleVM",
+            "name": "52.167.137.162",
             "type": "ecl",
             "request": "launch",
             "protocol": "http",
-            "serverAddress": "192.168.56.101",
+            "serverAddress": "52.167.137.162",
             "port": 8010,
             "path": "",
             "targetCluster": "thor",
             "rejectUnauthorized": true,
             "resultLimit": 100,
             "timeoutSecs": 60,
-            "user": "HMW",
-            "password": ""
-        },
-        {
-            "name": "playground",
-            "type": "ecl",
-            "request": "launch",
-            "protocol": "http",
-            "serverAddress": "play.hpccsystems.com",
-            "port": 8010,
-            "path": "",
-            "targetCluster": "thor",
-            "rejectUnauthorized": true,
-            "resultLimit": 100,
-            "timeoutSecs": 60,
-            "user": "HMW",
+            "user": "pfbo",
             "password": ""
         }
     ]
