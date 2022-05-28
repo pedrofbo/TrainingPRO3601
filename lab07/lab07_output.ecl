@@ -6,37 +6,34 @@ crimes := $.lab07.File;
 
 crimes2 := RECORD
   UNSIGNED recid;
-  STRING8 dia;
-  UNSIGNED8 ID;
-  STRING9 Case_Number;
-	STRING22 Date;
-  STRING38 Block;
-  STRING4 IUCR;
-  STRING33 Primary_Type;
-  STRING59 Description;
-  STRING47 Location_Description;
-  BOOLEAN Arrest;
-  BOOLEAN Domestic;
-  STRING47 Beat;
-  STRING8 District;
-  INTEGER8 Ward;
-  STRING4 Community_Area;
-  STRING4 FBI_Code;
-  REAL8 X_Coordinate;
-  REAL8 Y_Coordinate;
-  UNSIGNED8 Year;
-  STRING22 Updated_On;
-  REAL8 Latitude;
-  REAL8 Longitude;
-  STRING22 Location;
+  STRING8 day;
+  STRING6 time;
+  layout
 END;
 
 crimes2 MyTransf(layout Le, UNSIGNED cnt) := TRANSFORM
   SELF.recid := cnt;
-  SELF.dia := (STRING8)STD.Date.FromStringToDate(Le.date[1..10], '%m/%d/%Y');
+  SELF.day := (STRING8)STD.Date.FromStringToDate(Le.date[1..10], '%m/%d/%Y');
+  hour := (STRING2)IF(
+    Le.date[21..22] = 'PM',
+    IF(
+      (UNSIGNED)Le.date[12..13] < 12,
+      (STRING2)((UNSIGNED)Le.date[12..13] + 12),
+      Le.date[12..13]
+    ),
+    IF(
+      (UNSIGNED)Le.date[12..13] = 12,
+      '00',
+      Le.date[12..13]
+    )
+  );
+  minute := Le.date[15..16];
+  second := Le.date[18..19];
+  SELF.time := hour + minute + second;
   SELF := Le;
 END;
 
-c2 := PROJECT(crimes, MyTransf(LEFT,COUNTER));
+c2 := PROJECT(crimes, MyTransf(LEFT,COUNTER))
+              :PERSIST('~class::pfbo::persist::crimes_transform');
 
 c2;
