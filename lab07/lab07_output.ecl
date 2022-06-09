@@ -5,14 +5,14 @@ layout := $.lab07.layout;
 crimes := $.lab07.File;
 
 crimes2 := RECORD
-  UNSIGNED recid;
+  UNSIGNED row_id;
   STRING8 day;
   STRING6 time;
   layout
 END;
 
 crimes2 MyTransf(layout Le, UNSIGNED cnt) := TRANSFORM
-  SELF.recid := cnt;
+  SELF.row_id := cnt;
   SELF.day := (STRING8)STD.Date.FromStringToDate(Le.date[1..10], '%m/%d/%Y');
   hour := (STRING2)IF(
     Le.date[21..22] = 'PM',
