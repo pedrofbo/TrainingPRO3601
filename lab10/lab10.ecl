@@ -33,4 +33,3 @@ EXPORT lab10 := Module
     EXPORT Index_Crimes := INDEX(File_Crimes,{day, primary_type},{File_Crimes},'~class::pfbo::crimes::dp');
     EXPORT Index_Address := INDEX(File_Address,{district, ward},{File_Address},'~class::pfbo::addresses::dw');
 END;
-		
